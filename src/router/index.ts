@@ -13,6 +13,11 @@ const routes = [
     component: () => import("../components/MovieDetail.vue"),
     props: true,
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import("../views/LoginView.vue"),
+  },
 ]
 
 export const router = createRouter({
