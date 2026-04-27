@@ -1,4 +1,4 @@
-﻿// server.js (ESM)
+// server.js (ESM)
 import express from 'express'
 import bodyParser from 'body-parser'
 import jwt from 'jsonwebtoken'
@@ -23,10 +23,9 @@ app.use(express.json())
 // Γ£à JWT login
 app.post('/login', (req, res) => {
   const { username, password } = req.body
-console.log(req.body)
+
   // Check if user exists and password matches
   const user = USERS.find(u => u.username === username && u.password === password)
-console.log(user)
 
   // For the sake of the demo, we also allow 'guest' with no password check if needed,
   // but let's stick to the hardcoded user for a "real" feel.
@@ -50,6 +49,7 @@ function authenticateToken(req, res, next) {
     req.user = user
     next()
   })
+  //Check user also plus if the favorite id belongs to the user.
 }
 // Γ£à JSON store read/write
 async function readFavorites() {
@@ -150,7 +150,7 @@ app.delete('/favorites/:id', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Failed to delete favorite' })
   }
 })
-x
+
 
 // Γ£à Start the server
 app.listen(PORT, () => {

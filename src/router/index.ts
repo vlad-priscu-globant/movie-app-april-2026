@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import MovieList from "@/components/MovieList.vue";
-import MovieDetail from "@/components/MovieDetail.vue";
+import { useAuthStore } from "../stores/authStore";
+
 const routes = [
   {
     path: '/',
@@ -18,9 +18,25 @@ const routes = [
     name: 'Login',
     component: () => import("../views/LoginView.vue"),
   },
+  {
+    path: '/favorites',
+    name: 'Favorites',
+    component: () => import("../views/FavoritesView.vue"),
+    meta: { requiresAuth: true }
+  },
 ]
 
 export const router = createRouter({
   history: createWebHistory(),
   routes,
 })
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  
+  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+    next('/login');
+  } else {
+    next();
+  }
+});

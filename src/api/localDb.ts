@@ -1,5 +1,5 @@
 import type { SearchResult } from "../types/types.ts";
-import { httpWrapper } from "../utils/httpWrapper.ts";
+import { httpWrapper } from "./httpWrapper.ts";
 
 const baseUrl = 'http://localhost:3000/'
 
@@ -24,15 +24,9 @@ export async function removeFromWatchList(data: Partial<SearchResult>) {
   })
 }
 
-export async function fakeLogin() {
-  const res = await fetch(`${baseUrl}login`, {
+export async function fakeLogin(credentials: Record<string, string>) {
+  return await httpWrapper(`${baseUrl}login`, {
     method: 'POST',
-    body: JSON.stringify({username: 'guest1', password: 'password123'}),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
+    body: JSON.stringify(credentials),
   })
-  if (!res.ok) throw new Error(`Login failed: ${res.status}`)
-  return res.json()
 }

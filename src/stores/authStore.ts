@@ -9,9 +9,9 @@ export const useAuthStore = defineStore('authStore', () => {
 
   const isLoggedIn = computed(() => !!token.value);
 
-  async function login() {
+  async function login(credentials: Record<string, string>) {
     try {
-      const data = await fakeLogin();
+      const data = await fakeLogin(credentials);
       token.value = data.token;
       localStorage.setItem('token', data.token);
       return data;
