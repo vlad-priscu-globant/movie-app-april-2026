@@ -2,12 +2,12 @@
 import type { SearchResult } from "../types/types.ts";
 import { defineAsyncComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { movieStore } from "../stores/movieStore.ts";
+import { useMovieStore } from "../stores/movieStore.ts";
 import FavoriteItem from "@/components/FavoriteItem.vue";
 
 const movie = ref<SearchResult | null>(null)
 const route = useRoute()
-const {fetchMovie} = movieStore();
+const {fetchMovie} = useMovieStore();
 const MovieRating = defineAsyncComponent(() => import("./partials/MovieRating.vue"))
 onMounted(async () => {
   try {

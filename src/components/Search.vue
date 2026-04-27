@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 
 import { ref } from "vue";
-import { movieStore } from "../stores/movieStore.ts";
+import { useMovieStore } from "../stores/movieStore.ts";
 
 const focused = ref(false);
 const searchQuery = ref('')
-const {searchMovieList} = movieStore();
+const {searchMovieList} = useMovieStore();
 
 async function handleSearch() {
   try {

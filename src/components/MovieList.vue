@@ -2,7 +2,7 @@
 import { defineAsyncComponent, onMounted, ref, watch } from "vue";
 import type { SearchResult, SearchResults } from "../types/types.ts";
 import { fetchPopularMovies } from "../api/tmdb.ts";
-import { movieStore } from "../stores/movieStore.ts";
+import { useMovieStore } from "../stores/movieStore.ts";
 import { storeToRefs } from "pinia";
 
 const movies = ref<SearchResult[] | []>([])
@@ -11,7 +11,7 @@ onMounted(async () => {
   const data: SearchResults = await fetchPopularMovies(1);
   movies.value = data.results;
 })
-const store = movieStore();
+const store = useMovieStore();
 const {searchList, searchQuery} = storeToRefs(store)
 watch(searchList, async (newValue) => {
  
